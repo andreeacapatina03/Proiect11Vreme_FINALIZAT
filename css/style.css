@@ -614,7 +614,7 @@ body.theme-snow .site-header {
   .weather-grid {
     grid-template-columns: 2fr 3fr;
   }
-
+/*....*/
   .weather-temp {
     font-size: 4.5rem;
   }
