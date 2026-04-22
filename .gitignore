@@ -1,0 +1,22 @@
+# Dependinte Node.js
+node_modules/
+
+# Fisier cu date sensibile (chei API, credentiale)
+# IMPORTANT: Nu incarca niciodata .env pe GitHub!
+.env
+
+# Fisiere sistem
+.DS_Store
+Thumbs.db
+
+# Editor / tooling (nu face parte din proiect)
+.claude/
+.vscode/
+
+# Loguri
+*.log
+npm-debug.log*
+
+# Fisiere build
+dist/
+build/
