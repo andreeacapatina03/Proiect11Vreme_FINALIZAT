@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WeatherApp — verifică vremea curentă din orice oraș">
+  <title>WeatherApp — Vremea Curentă</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-default">
+
+  <!-- ── Antet ─────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header__brand">
+        <h1 class="site-title">&#127748; WeatherApp</h1>
+        <p class="site-subtitle">Vremea curentă din orice oraș din lume</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Conținut principal ──────────────────────────────────── -->
+  <main class="site-main">
+    <div class="container">
+
+      <!-- Secțiunea de căutare -->
+      <section class="section" aria-labelledby="search-title">
+        <h2 id="search-title" class="section-title">Caută orașul</h2>
+
+        <form id="form-search" class="form" novalidate>
+          <div class="form-row">
+
+            <!-- Input oraș -->
+            <div class="form-group">
+              <label class="form-label" for="city-input">
+                Oraș <span class="required" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="form-input"
+                type="text"
+                id="city-input"
+                name="city"
+                placeholder="ex: București, Cluj, Paris..."
+                autocomplete="off"
+                required>
+              <span class="form-error" id="city-error" aria-live="polite"></span>
+            </div>
+
+            <!-- Selector unitate temperatură -->
+            <div class="form-group">
+              <label class="form-label" for="unit-select">
+                Unitate temperatură
+              </label>
+              <select class="form-select" id="unit-select" aria-label="Selectează unitatea de temperatură">
+                <option value="celsius"    selected>Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+                <option value="kelvin">Kelvin (K)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary">
+              &#128269; Caută vremea
+            </button>
+            <button type="button" id="geo-btn" class="btn btn--outline">
+              &#128205; Folosește locația mea
+            </button>
+            <button type="reset" class="btn btn--secondary">
+              Resetează
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Secțiunea căutări recente (localStorage) -->
+      <section class="section" id="recent-section" aria-labelledby="recent-title" hidden>
+        <div class="section-header">
+          <h2 id="recent-title" class="section-title">&#128336; Căutări recente</h2>
+          <button type="button" id="clear-history-btn" class="btn btn--sm btn--secondary">
+            &#128465; Șterge istoricul
+          </button>
+        </div>
+        <div id="recent-cities" class="recent-list" role="list" aria-label="Orașe căutate recent">
+          <!-- Butoane populate dinamic de storage.js -->
+        </div>
+      </section>
+
+      <!-- Stare: se încarcă -->
+      <div class="state-loading" id="weather-loading" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Se încarcă datele meteo...</p>
+      </div>
+
+      <!-- Stare: eroare -->
+      <div class="state-error" id="weather-error" role="alert" aria-live="assertive" hidden>
+        <p id="weather-error-msg">Eroare la încărcarea datelor meteo.</p>
+      </div>
+
+      <!-- Secțiunea cu datele meteo -->
+      <section class="section" id="weather-section" aria-label="Date meteo curente" hidden>
+
+        <!-- Card principal: temperatură + descriere -->
+        <div class="weather-grid">
+
+          <article class="card-weather card-weather--main">
+            <div class="card-weather__header">
+              <div>
+                <h2 id="city-name" class="weather-city">—</h2>
+                <p id="country-info" class="weather-country">—</p>
+                <p id="local-time"   class="weather-time">—</p>
+              </div>
+              <img id="weather-icon" src="" alt="Condiție meteo" class="weather-icon">
+            </div>
+
+            <div class="card-weather__body">
+              <div id="temperature"   class="weather-temp">—</div>
+              <div id="feels-like"    class="weather-feels">—</div>
+              <p   id="weather-desc"  class="weather-desc">—</p>
+            </div>
+
+            <!-- Toate cele 3 unități simultan -->
+            <div class="all-units">
+              <span id="temp-c" class="unit-badge">—°C</span>
+              <span id="temp-f" class="unit-badge">—°F</span>
+              <span id="temp-k" class="unit-badge">— K</span>
+            </div>
+          </article>
+
+          <!-- Card detalii: umiditate, vânt, presiune etc. -->
+          <article class="card-weather card-weather--details">
+            <h3 class="card-weather__subtitle">&#128202; Detalii</h3>
+            <ul class="details-list">
+              <li class="detail-item">
+                <span class="detail-item__icon">&#128167;</span>
+                <div class="detail-item__info">
+                  <span class="detail-item__label">Umiditate</span>
+                  <span id="humidity" class="detail-item__value">—</span>
+                </div>
+              </li>
+              <li class="detail-item">
+                <span class="detail-item__icon">&#128168;</span>
+                <div class="detail-item__info">
+                  <span class="detail-item__label">Vânt</span>
+                  <span id="wind-info" class="detail-item__value">—</span>
+                </div>
+              </li>
+              <li class="detail-item">
+                <span class="detail-item__icon">&#129668;</span>
+                <div class="detail-item__info">
+                  <span class="detail-item__label">Presiune</span>
+                  <span id="pressure" class="detail-item__value">—</span>
+                </div>
+              </li>
+              <li class="detail-item">
+                <span class="detail-item__icon">&#128065;</span>
+                <div class="detail-item__info">
+                  <span class="detail-item__label">Vizibilitate</span>
+                  <span id="visibility" class="detail-item__value">—</span>
+                </div>
+              </li>
+              <li class="detail-item">
+                <span class="detail-item__icon">&#127774;</span>
+                <div class="detail-item__info">
+                  <span class="detail-item__label">Răsărit</span>
+                  <span id="sunrise" class="detail-item__value">—</span>
+                </div>
+              </li>
+              <li class="detail-item">
+                <span class="detail-item__icon">&#127751;</span>
+                <div class="detail-item__info">
+                  <span class="detail-item__label">Apus</span>
+                  <span id="sunset" class="detail-item__value">—</span>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+        </div>
+
+        <!-- Card sfat zi: haină / umbrelă / zi frumoasă -->
+        <div id="day-advice" class="card-advice" role="note" aria-live="polite">
+          <!-- Populat dinamic de weatherDisplay.js -->
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ── Subsol ──────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__text">
+        Date furnizate de <strong>OpenWeatherMap API</strong> &bull;
+        Proiect Tehnologii Web &copy; <time datetime="2025">2025</time>
+      </p>
+      <p class="site-footer__text">
+        Andreea Căpățînă &bull; Ioana-Diana Ionel &bull; Carolina Varzari
+      </p>
+    </div>
+  </footer>
+
+  <!-- Module JavaScript (ordinea de încărcare contează!) -->
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/weatherService.js"></script>
+  <script src="js/weatherDisplay.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -14,7 +14,7 @@ const app = express();
 // Servim fișierele statice din folderul public/
 // GET /   public/index.html
 // GET /css/style.css ,  public/css/style.css
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'publicnou')));
 
 // ── Middleware global ──────────────────────────────────────
 app.use(express.json());  // parsează body JSON al cererilor
