@@ -14,7 +14,7 @@ const app = express();
 // Servim fișierele statice din folderul public/
 // GET /   public/index.html
 // GET /css/style.css ,  public/css/style.css
-app.use(express.static(path.join(__dirname, 'publicnou')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 // ── Middleware global ──────────────────────────────────────
 app.use(express.json());  // parsează body JSON al cererilor
@@ -117,12 +117,20 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // ── Pornire server ─────────────────────────────────────────
-app.listen(config.server.port, () => {
+/*app.listen(config.server.port, () => {
   console.log(`✓ Server pornit la:  http://localhost:${config.server.port}`);
   console.log(`✓ Mediu:             ${config.server.env}`);
   console.log(`✓ Frontend:          http://localhost:${config.server.port}/index.html`);
   console.log(`✓ API weather:       http://localhost:${config.server.port}/api/v1/weather?city=Bucuresti`);
+});*/
+
+// În development local folosim portul 5000
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server pornit pe portul ${PORT}`);
 });
 
 // Export pentru teste Jest
 module.exports = app;
+
