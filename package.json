@@ -9,6 +9,9 @@
     "dev:debug": "NODE_OPTIONS='--inspect' nodemon server.js",
     "test":      "jest --verbose"
   },
+    "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "cors":       "^2.8.5",
     "dotenv":     "^16.0.3",
@@ -25,3 +28,5 @@
   "author": "Echipa ProiectVreme",
   "license": "MIT"
 }
+
+

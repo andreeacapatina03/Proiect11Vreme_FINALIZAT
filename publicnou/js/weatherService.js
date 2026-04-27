@@ -2,7 +2,7 @@
 // Strat de acces la date — separation of concerns.
 // Toate cererile HTTP către server sunt centralizate AICI.
 // Restul modulelor (display, app) nu știu nimic despre fetch sau URL-uri.
-
+const API_BASE_URL = 'https://proiect11-vreme-ca-iid-vc.onrender.com';
 const API_BASE = '/api/v1/weather';
 
 // ── Funcții de preluare date ───────────────────────────────

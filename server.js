@@ -117,12 +117,20 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // ── Pornire server ─────────────────────────────────────────
-app.listen(config.server.port, () => {
+/*app.listen(config.server.port, () => {
   console.log(`✓ Server pornit la:  http://localhost:${config.server.port}`);
   console.log(`✓ Mediu:             ${config.server.env}`);
   console.log(`✓ Frontend:          http://localhost:${config.server.port}/index.html`);
   console.log(`✓ API weather:       http://localhost:${config.server.port}/api/v1/weather?city=Bucuresti`);
+});*/
+
+// În development local folosim portul 5000
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server pornit pe portul ${PORT}`);
 });
 
 // Export pentru teste Jest
 module.exports = app;
+
