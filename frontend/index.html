@@ -101,7 +101,34 @@
       <!-- Secțiunea cu datele meteo -->
       <section class="section" id="weather-section" aria-label="Date meteo curente" hidden>
 
-        
+        <!-- Card principal: temperatură + descriere -->
+        <div class="weather-grid">
+
+          <article class="card-weather card-weather--main">
+            <div class="card-weather__header">
+              <div>
+                <h2 id="city-name" class="weather-city">—</h2>
+                <p id="country-info" class="weather-country">—</p>
+                <p id="local-time"   class="weather-time">—</p>
+              </div>
+              <img id="weather-icon" src="" alt="Condiție meteo" class="weather-icon">
+            </div>
+
+            <div class="card-weather__body">
+              <div id="temperature"   class="weather-temp">—</div>
+              <div id="feels-like"    class="weather-feels">—</div>
+              <p   id="weather-desc"  class="weather-desc">—</p>
+            </div>
+
+
+            <!-- Toate cele 3 unități simultan -->
+            <div class="all-units">
+              <span id="temp-c" class="unit-badge">—°C</span>
+              <span id="temp-f" class="unit-badge">—°F</span>
+              <span id="temp-k" class="unit-badge">— K</span>
+            </div>
+          </article>
+
           <!-- Card detalii: umiditate, vânt, presiune etc. -->
           <article class="card-weather card-weather--details">
             <h3 class="card-weather__subtitle">&#128202; Detalii</h3>
@@ -153,33 +180,7 @@
 
         </div>
 
-            <!-- Toate cele 3 unități simultan -->
-            <div class="all-units">
-              <span id="temp-c" class="unit-badge">—°C</span>
-              <span id="temp-f" class="unit-badge">—°F</span>
-              <span id="temp-k" class="unit-badge">— K</span>
-            </div>
-          </article>
-
-        <!-- Card principal: temperatură + descriere -->
-        <div class="weather-grid">
-
-          <article class="card-weather card-weather--main">
-            <div class="card-weather__header">
-              <div>
-                <h2 id="city-name" class="weather-city">—</h2>
-                <p id="country-info" class="weather-country">—</p>
-                <p id="local-time"   class="weather-time">—</p>
-              </div>
-              <img id="weather-icon" src="" alt="Condiție meteo" class="weather-icon">
-            </div>
-
-            <div class="card-weather__body">
-              <div id="temperature"   class="weather-temp">—</div>
-              <div id="feels-like"    class="weather-feels">—</div>
-              <p   id="weather-desc"  class="weather-desc">—</p>
-            </div>
-
+        
         <!-- Card sfat zi: haină / umbrelă / zi frumoasă -->
         <div id="day-advice" class="card-advice" role="note" aria-live="polite">
           <!-- Populat dinamic de weatherDisplay.js -->
