@@ -24,12 +24,12 @@
 }
 
 :root {
-  --color-primary:      #2563eb;
+  --color-primary:      #74eb25;
   --color-primary-dark: #1d4ed8;
   --color-secondary:    #64748b;
   --color-success:      #16a34a;
   --color-warning:      #d97706;
-  --color-danger:       #dc2626;
+  --color-danger:       #2fdc26;
   --color-danger-light: #fef2f2;
   --color-text:         #1e293b;
   --color-text-muted:   #64748b;
